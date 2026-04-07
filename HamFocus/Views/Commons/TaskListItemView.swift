@@ -11,7 +11,6 @@ import SwiftUI
 struct TaskListItemView: View {
 
     // Data task yang ditampilkan
-    var emoji: String
     var taskName: String
     var deadline: Date
     var isDone: Bool
@@ -29,9 +28,10 @@ struct TaskListItemView: View {
     var body: some View {
         HStack(spacing: 12) {
 
-            // Emoji icon task (kiri)
-            Text(emoji)
-                .font(.title2)
+            // Image task dari asset (kiri)
+            Image("")
+                .resizable()
+                .frame(width: 36, height: 36)
 
             // Nama task dan tanggal deadline (tengah)
             VStack(alignment: .leading, spacing: 2) {
@@ -74,15 +74,13 @@ struct TaskListItemView: View {
 #Preview {
     List {
         TaskListItemView(
-            emoji: "🍎",
             taskName: "Wireframing for Apple",
             deadline: Date(),
             isDone: false,
             onToggle: {}
         )
-        
+
         TaskListItemView(
-            emoji: "🍌",
             taskName: "Wireframing for Apple",
             deadline: Date(),
             isDone: true,
