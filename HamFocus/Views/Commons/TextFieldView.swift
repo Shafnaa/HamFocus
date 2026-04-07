@@ -8,6 +8,20 @@
 import Foundation
 import SwiftUI
 
-struct TextFieldView: View {
-    var body: some View {}
+struct MyTextFieldView: View {
+    @State private var text = "Type Here"
+
+    var body: some View {
+        VStack {
+            TextField("Enter text here...", text: $text)
+                .padding() // makes it thicker
+                .background(Color.white.opacity(0.2)) // soft background
+                .cornerRadius(25) // more rounded (pill shape)
+                .padding(.horizontal) // space from screen edge
+        }
+    }
+}
+
+#Preview {
+    MyTextFieldView()
 }
