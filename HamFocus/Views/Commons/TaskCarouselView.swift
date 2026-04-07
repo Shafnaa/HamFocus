@@ -82,7 +82,7 @@ struct TaskCarouselView: View {
     
     // UI Utama ketika ada task (Slider + Title + Dots)
     private var populatedStateSection: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 20) {
             // 1. Slider Area
             TabView(selection: $currentTaskIndex) {
                 ForEach(0..<topThreeTasks.count, id: \.self) { index in
