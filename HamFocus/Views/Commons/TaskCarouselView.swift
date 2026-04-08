@@ -49,8 +49,8 @@ struct TaskCarouselView: View {
     
     // UI untuk kondisi tidak ada task
     private var emptyStateSection: some View {
-        VStack(spacing: 16) {
-            Image("PriorityEmpty") // Menggunakan asset dari model Priority.forget
+        VStack(spacing: 10) {
+            Image("HamsterOnFire")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 220, height: 220)
@@ -63,7 +63,7 @@ struct TaskCarouselView: View {
     
     // UI utama carousel
     private var populatedStateSection: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             // 1. Slider Area (Wajib pakai .tag agar bisa sliding)
             TabView(selection: $currentTaskIndex) {
                 ForEach(0..<topThreeTasks.count, id: \.self) { index in
