@@ -72,6 +72,13 @@ struct TaskListItemView: View {
 
 // Preview untuk development
 #Preview {
+    let task = Task(
+        title: "Wireframing for Apple",
+        dueAt: Date().timeIntervalSince1970,
+        duration: 25,
+        importance: .high
+    )
+
     List {
         TaskListItemView(
             taskName: "Wireframing for Apple",
