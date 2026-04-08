@@ -28,6 +28,15 @@ enum Priority: String, CaseIterable {
         default: "PriorityEmpty"
         }
     }
+
+    var iconNameCarousel: String {
+        switch self {
+        case .doNow: "PriorityAppleGlow"
+        case .schedule: "PriorityBananaGlow"
+        case .delegate: "PriorityPearGlow"
+        default: "PriorityEmpty"
+        }
+    }
 }
 
 /// Task Model
