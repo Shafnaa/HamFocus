@@ -18,6 +18,7 @@ struct MyTextFieldView: View {
                 .background(Color.white.opacity(0.2)) // soft background
                 .cornerRadius(25) // more rounded (pill shape)
                 .padding(.horizontal,40) // space from screen edge
+                .foregroundColor(Color.black.opacity(0.5))
         }
     }
 }
