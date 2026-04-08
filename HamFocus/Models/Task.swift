@@ -25,7 +25,7 @@ enum Priority: String, CaseIterable {
         case .doNow: "PriorityApple"
         case .schedule: "PriorityBanana"
         case .delegate: "PriorityPear"
-        default: "PriorityEmpty"
+        default: "PriorityWood"
         }
     }
 
@@ -34,7 +34,7 @@ enum Priority: String, CaseIterable {
         case .doNow: "PriorityAppleGlow"
         case .schedule: "PriorityBananaGlow"
         case .delegate: "PriorityPearGlow"
-        default: "PriorityEmpty"
+        default: "PriorityWoodGlow"
         }
     }
 }

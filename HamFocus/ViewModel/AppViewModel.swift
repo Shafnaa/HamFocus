@@ -125,4 +125,30 @@ class AppViewModel {
             .sorted(by: { $0.priorityValue > $1.priorityValue })
             .map { $0 }
     }
+
+    func editTask(
+        taskId: UUID,
+        title: String,
+        note: String? = nil,
+        dueAt: TimeInterval,
+        duration: TimeInterval,
+        importance: Importance,
+        isCompleted: Bool,
+    ) {
+        guard let editedTask = tasks.first(where: { $0.id == taskId }) else { return }
+
+        editedTask.title = title
+        editedTask.note = note
+        editedTask.dueAt = dueAt
+        editedTask.duration = duration
+        editedTask.importance = importance
+        editedTask.isCompleted = isCompleted
+
+        do {
+            try editedTask.save()
+            refreshTask()
+        } catch {
+
+        }
+    }
 }
