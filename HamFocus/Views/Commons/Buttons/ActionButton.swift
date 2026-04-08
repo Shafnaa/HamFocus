@@ -174,12 +174,11 @@ struct ActionButton: View {
             } else {
                 if let iconName = iconName {
                     Image(systemName: iconName)
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 20, weight: .medium))
                 }
                 if let title = title {
                     Text(title)
-                        .fontWeight(.semibold)
-                        .font(.subheadline)
+                        .font(.system(size: 20, weight: .semibold))
                 }
             }
         }

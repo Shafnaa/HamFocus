@@ -10,7 +10,18 @@ import SwiftUI
 
 struct TabHomeView: View {
     var body: some View {
-        TaskCarouselView()
+        NavigationStack {
+            VStack {
+                TaskCarouselView()
+                ActionButton(title: "Start", iconName: "play.fill") {
+                    
+                }
+                .padding(.horizontal, 100)
+                .padding(.vertical, 10)
+            }
+            .navigationTitle(Text("Space"))
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 

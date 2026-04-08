@@ -76,7 +76,7 @@ struct TaskCarouselView: View {
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: 300)
+            .frame(height: 250)
         
             // 3. Dots (Efek Append/Memanjang)
             paginationDotsSection
