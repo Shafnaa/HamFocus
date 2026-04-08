@@ -18,7 +18,10 @@ class DataBase {
         do {
             // Initialize the persistence stack with a list of model types.
             self.persistenceStack = try PersistenceStack(
-                modelTypes: [],
+                modelTypes: [
+                    Task.self,
+                    Session.self
+                ],
                 isMemoryOnly: false
             )
         } catch {
