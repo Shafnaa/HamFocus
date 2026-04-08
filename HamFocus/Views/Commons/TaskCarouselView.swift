@@ -77,13 +77,7 @@ struct TaskCarouselView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: 300)
-            
-            // 2. Title (Menggunakan SF Fonts)
-            Text(topThreeTasks[currentTaskIndex].title)
-                .font(.system(size: 34, weight: .bold))
-                .foregroundColor(.black)
-                .multilineTextAlignment(.center)
-            
+        
             // 3. Dots (Efek Append/Memanjang)
             paginationDotsSection
         }

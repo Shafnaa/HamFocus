@@ -119,4 +119,10 @@ class AppViewModel {
             .prefix(3)
             .map { $0 }
     }
+    
+    func sortTasks() -> [Task] {
+        return tasks
+            .sorted(by: { $0.priorityValue > $1.priorityValue })
+            .map { $0 }
+    }
 }

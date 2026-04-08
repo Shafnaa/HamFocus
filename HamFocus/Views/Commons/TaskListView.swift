@@ -15,10 +15,7 @@ struct TaskListView: View {
         List {
             ForEach(taskList) { task in
                 TaskListItemView(
-                    taskName: task.title,
-                    deadline: Date(timeIntervalSince1970: task.dueAt),
-                    isDone: task.isCompleted,
-                    onToggle: {}
+                    task: task
                 )
             }
         }

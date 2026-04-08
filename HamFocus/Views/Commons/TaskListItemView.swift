@@ -24,7 +24,7 @@ struct TaskListItemView: View {
         HStack(spacing: 12) {
 
             // Image task dari asset (kiri)
-            Image("")
+            Image(task.priority.iconName)
                 .resizable()
                 .frame(width: 36, height: 36)
 
