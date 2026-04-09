@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct HamFocusApp: App {
+    @State private var appVM: AppViewModel = .init()
+    @StateObject private var focusVM: FocusViewModel = .init()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(appVM)
+                .environmentObject(focusVM)
         }
     }
 }
