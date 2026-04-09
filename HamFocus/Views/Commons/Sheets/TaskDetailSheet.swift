@@ -145,12 +145,14 @@ struct TaskDetailSheet<Content: View>: View {
             return false
         }
 
-        appVM.addTask(
+        appVM.editTask(
+            taskId: task.id,
             title: newTaskTitle,
             note: newTaskNote.isEmpty ? nil : newTaskNote,
             dueAt: newTaskDueAt.timeIntervalSince1970,
             duration: newTaskDuration,
             importance: newTaskImportance,
+            isCompleted: task.isCompleted,
         )
 
         print("masuk")
