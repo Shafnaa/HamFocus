@@ -9,23 +9,18 @@ import SwiftUI
 
 struct TaskCarouselView: View {
     // MARK: - Properties
-    
-    // Memanggil VM yang sudah di-inject di level App (Environment)
-    @Environment(AppViewModel.self) private var vm
-    
+        
     // State untuk kontrol UI
     @State private var currentTaskIndex: Int = 0
     @State private var isShowingDetailSheet: Bool = false
-    
-    // Computed property untuk mempermudah akses top 3 dari VM
-    private var topThreeTasks: [Task] {
-        vm.getTopThree()
-    }
+        
+    var tasks : [Task]
+    @Binding var taskIndex : Int
     
     // MARK: - Body
     var body: some View {
         VStack(spacing: 30) {
-            if topThreeTasks.isEmpty {
+            if tasks.isEmpty {
                 // State 1: Kosong (Sesuai permintaan: 1 png, tidak bisa klik/slide)
                 emptyStateSection
             } else {
@@ -35,12 +30,12 @@ struct TaskCarouselView: View {
         }
         .sheet(isPresented: $isShowingDetailSheet) {
             // Memastikan index aman sebelum menampilkan sheet
-            if currentTaskIndex < topThreeTasks.count {
+            if currentTaskIndex < tasks.count {
 //                TaskDetailSheetView(selectedTask: topThreeTasks[currentTaskIndex])
             }
         }
         // Reset index ke 0 jika jumlah task berubah (menghindari crash)
-        .onChange(of: topThreeTasks.count) {
+        .onChange(of: tasks.count) {
             currentTaskIndex = 0
         }
     }
@@ -66,9 +61,9 @@ struct TaskCarouselView: View {
         VStack(spacing: 20) {
             // 1. Slider Area (Wajib pakai .tag agar bisa sliding)
             TabView(selection: $currentTaskIndex) {
-                ForEach(0..<topThreeTasks.count, id: \.self) { index in
+                ForEach(0..<tasks.count, id: \.self) { index in
                     // Memanggil View buatan teman
-                    TaskCarouselItemView(task: topThreeTasks[index])
+                    TaskCarouselItemView(task: tasks[index])
                         .tag(index) // Identitas slide untuk selection binding
                         .onTapGesture {
                             isShowingDetailSheet = true
@@ -86,7 +81,7 @@ struct TaskCarouselView: View {
     // Dots yang memanjang secara dinamis saat aktif
     private var paginationDotsSection: some View {
         HStack(spacing: 8) {
-            ForEach(0..<topThreeTasks.count, id: \.self) { index in
+            ForEach(0..<tasks.count, id: \.self) { index in
                 let isActive = currentTaskIndex == index
                 
                 Capsule()
@@ -102,7 +97,8 @@ struct TaskCarouselView: View {
 // MARK: - Preview
 #Preview {
     // Mocking Environment untuk Preview
-    TaskCarouselView()
-        .environment(AppViewModel())
-        .padding()
+    TaskCarouselView(
+        tasks: [],
+        taskIndex: .constant(0)
+    )
 }
