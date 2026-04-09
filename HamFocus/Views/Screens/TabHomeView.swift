@@ -10,11 +10,12 @@ import SwiftUI
 
 struct TabHomeView: View {
     @EnvironmentObject var focusVM: FocusViewModel
-    @Environment(AppViewModel.self) private var vm
+    @Environment(AppViewModel.self) private var appVM
+
     @State private var taskIndex: Int = 0
 
     private var topThreeTasks: [Task] {
-        vm.getTopThree()
+        return appVM.getTopThree()
     }
 
     var body: some View {
@@ -24,8 +25,10 @@ struct TabHomeView: View {
 
                 if !topThreeTasks.isEmpty {
                     ActionButton(title: "Start", iconName: "play.fill") {
-                        let task = topThreeTasks.indices.contains(taskIndex) ? topThreeTasks[taskIndex] : topThreeTasks.first
-                        
+                        let task =
+                            topThreeTasks.indices.contains(taskIndex)
+                            ? topThreeTasks[taskIndex] : topThreeTasks.first
+
                         if let task = task {
                             focusVM.startFocusMode(for: task)
                         }
