@@ -105,5 +105,50 @@ class AppViewModel {
             }
         }
     }
+    
+    // MARK: get top three
+    //get top three tasks that are already sorted by the priority
+    /// Fungsi untuk mengambil 3 task teratas berdasarkan priorityValue
+    func getTopThree() -> [Task] {
+        // 1. Filter: Hanya ambil task yang belum selesai
+        // 2. Sort: Urutkan berdasarkan priorityValue (Urgency * Importance) dari besar ke kecil
+        // 3. Prefix: Ambil 3 data pertama
+        return tasks
+            .filter { !$0.isCompleted }
+            .sorted(by: { $0.priorityValue > $1.priorityValue })
+            .prefix(3)
+            .map { $0 }
+    }
+    
+    func sortTasks() -> [Task] {
+        return tasks
+            .sorted(by: { $0.priorityValue > $1.priorityValue })
+            .map { $0 }
+    }
 
+    func editTask(
+        taskId: UUID,
+        title: String,
+        note: String? = nil,
+        dueAt: TimeInterval,
+        duration: TimeInterval,
+        importance: Importance,
+        isCompleted: Bool,
+    ) {
+        guard let editedTask = tasks.first(where: { $0.id == taskId }) else { return }
+
+        editedTask.title = title
+        editedTask.note = note
+        editedTask.dueAt = dueAt
+        editedTask.duration = duration
+        editedTask.importance = importance
+        editedTask.isCompleted = isCompleted
+
+        do {
+            try editedTask.save()
+            refreshTask()
+        } catch {
+
+        }
+    }
 }

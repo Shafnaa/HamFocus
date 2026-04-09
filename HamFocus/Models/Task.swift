@@ -25,7 +25,16 @@ enum Priority: String, CaseIterable {
         case .doNow: "PriorityApple"
         case .schedule: "PriorityBanana"
         case .delegate: "PriorityPear"
-        default: "PriorityEmpty"
+        default: "PriorityWood"
+        }
+    }
+
+    var iconNameCarousel: String {
+        switch self {
+        case .doNow: "PriorityAppleGlow"
+        case .schedule: "PriorityBananaGlow"
+        case .delegate: "PriorityPearGlow"
+        default: "PriorityWoodGlow"
         }
     }
 }
