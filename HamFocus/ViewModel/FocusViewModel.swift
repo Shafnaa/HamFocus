@@ -34,6 +34,9 @@ class FocusViewModel: ObservableObject {
     //starttime
     private var startTime: Date?
 
+    @Published var isDone: Bool = false
+    @Published var totalTime: TimeInterval = 0
+
     //MARK: RESET VIEWMODEL
     ///to reset the viewmodel to have a clean start everytime
     private func resetViewModel() {
@@ -81,36 +84,43 @@ class FocusViewModel: ObservableObject {
     }
 
     /// stop the focus mode and return to home screen
+    /// stop the focus mode and return to home screen
     func stopFocusMode(done: Bool, onDelete: (() -> Void)? = nil) {
         timer?.invalidate()
 
-        //MARK: review later
-        //ALL THESE WOULD BE FOR IF WE DECIDE TO SAVE THE SESSIONS
+        let now = Date()
+
+        // 1. Calculate the final precise time for this CURRENT session
+        let sessionDuration =
+            (currentState == .working)
+            ? (now.timeIntervalSince(startTime ?? now) + accumulatedTime)
+            : accumulatedTime
+
+        // 2. Keep your past logic: Finalize the currentSession object for the log
         if var session = currentSession {
-            let now = Date()
-            session.endedAt = now  // Record the actual time it ended
-
-            // Calculate total focus time accurately
-            let finalFocusTime =
-                (currentState == .working)
-                ? (now.timeIntervalSince(startTime ?? now) + accumulatedTime)
-                : accumulatedTime
-
-            // session.duration = finalFocusTime // Use this once your model has it!
+            session.endedAt = now
 
             print("--- SESSION SUMMARY ---")
             print("Task: \(currentTask?.title ?? "Unknown")")
             print("Started: \(session.startedAt)")
             print("Ended: \(now)")
-            print("Total Focus Time: \(Int(finalFocusTime)) seconds")
+            print("Current Session Duration: \(Int(sessionDuration)) seconds")
             print("-----------------------")
         }
 
+        // 3. Add the new logic: Accumulate total time if the task is finished
         if done {
-            //this would need the button to decide it later
+            // This adds this session's time to your persistent totalTime variable
+            self.totalTime += sessionDuration
+            self.isDone = true
+
+            print("Total Cumulative Focus Time: \(Int(totalTime)) seconds")
+
+            // Trigger the external deletion/completion logic
             onDelete?()
         }
 
+        // 4. Cleanup
         resetViewModel()
         isFocusModeActive = false
     }

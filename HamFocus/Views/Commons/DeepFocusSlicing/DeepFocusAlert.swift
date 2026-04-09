@@ -9,6 +9,7 @@ import SwiftUI
 
 //Alert Button untuk ketika selesai task
 struct DeepFocusAlert<Content: View>: View {
+    @EnvironmentObject var focusVM : FocusViewModel
     private let content: Content
     @Binding var isPresented : Bool
     init(
@@ -23,10 +24,14 @@ struct DeepFocusAlert<Content: View>: View {
         content
         
         .alert("Focus Session Complete", isPresented: $isPresented) {
-            Button("Back",) { }
-            Button("Finish", role: .confirm) { }
+            Button("Back",) {
+                isPresented.toggle()
+            }
+            Button("Finish", role: .confirm) {
+                focusVM.stopFocusMode(done: true)
+            }
         } message: {
-            Text("Your focus session was 41 minutes and 31 seconds.")
+            Text("Your focus session was \(focusVM.elapsedTime)")
         }
     }
 }
@@ -35,4 +40,5 @@ struct DeepFocusAlert<Content: View>: View {
     DeepFocusAlert(isPresented: .constant(true), content: { Button("muncul") {
         
     }})
+    .environmentObject(FocusViewModel())
 }
