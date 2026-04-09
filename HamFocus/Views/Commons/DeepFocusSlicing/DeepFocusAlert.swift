@@ -7,12 +7,32 @@
 
 import SwiftUI
 
-struct DeepFocusAlert: View {
+//Alert Button untuk ketika selesai task
+struct DeepFocusAlert<Content: View>: View {
+    private let content: Content
+    @Binding var isPresented : Bool
+    init(
+        isPresented: Binding<Bool>,
+        @ViewBuilder content: () -> Content,
+    ) {
+        _isPresented = isPresented
+
+        self.content = content()
+    }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        content
+        
+        .alert("Focus Session Complete", isPresented: $isPresented) {
+            Button("Back",) { }
+            Button("Finish", role: .confirm) { }
+        } message: {
+            Text("Your focus session was 41 minutes and 31 seconds.")
+        }
     }
 }
 
 #Preview {
-    DeepFocusAlert()
+    DeepFocusAlert(isPresented: .constant(true), content: { Button("muncul") {
+        
+    }})
 }
