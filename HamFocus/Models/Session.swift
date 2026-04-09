@@ -23,7 +23,7 @@ struct Timestamp: Codable {
     var type: TimestampType
 
     var startedAt: Date
-    var endedAt: Date
+    var endedAt: Date?
 }
 
 /// Session Model
@@ -57,7 +57,7 @@ extension Session: Equatable {
         var duration: TimeInterval = 0
 
         for timestamp in timestamps where timestamp.type == .focus {
-            duration += timestamp.endedAt.timeIntervalSince(timestamp.startedAt)
+            duration += timestamp.endedAt?.timeIntervalSince(timestamp.startedAt) ?? 0
         }
 
         return duration
@@ -67,7 +67,7 @@ extension Session: Equatable {
         var duration: TimeInterval = 0
 
         for timestamp in timestamps where timestamp.type == .rest {
-            duration += timestamp.endedAt.timeIntervalSince(timestamp.startedAt)
+            duration += timestamp.endedAt?.timeIntervalSince(timestamp.startedAt) ?? 0
         }
 
         return duration
