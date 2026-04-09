@@ -16,35 +16,45 @@ struct BreakAnimationState: View {
         case finish
     }
 
-    static let defaultSize = CGSize(width: 140, height: 140)
+    private static let animationSize = CGSize(width: 140, height: 140)
 
-    let task: Task
+    let priority: Priority
+    let timerText: String
 
     private let animationState: AnimationState
 
     private init(
-        task: Task,
+        priority: Priority,
+        timerText: String,
         animationState: AnimationState
     ) {
-        self.task = task
+        self.priority = priority
+        self.timerText = timerText
         self.animationState = animationState
     }
 
     var body: some View {
-        content
-            .frame(
-                width: BreakAnimationState.defaultSize.width,
-                height: BreakAnimationState.defaultSize.height
-            )
+        VStack(spacing: 16) {
+            animationContent
+                .frame(
+                    width: Self.animationSize.width,
+                    height: Self.animationSize.height
+                )
+
+            Text(timerText)
+                .font(.system(size: 48, weight: .black, design: .rounded))
+                .monospacedDigit()
+        }
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder
-    private var content: some View {
+    private var animationContent: some View {
         switch animationState {
         case .session:
             GIFAssetView(asset: .runningGIF)
         case .break:
-            Image(task.priority.animationAsset.rawValue)
+            Image(priority.animationAsset.rawValue)
                 .resizable()
                 .scaledToFit()
         case .finish:
@@ -52,16 +62,37 @@ struct BreakAnimationState: View {
         }
     }
 
-    static func session(_ task: Task) -> BreakAnimationState {
-        .init(task: task, animationState: .session)
+    static func session(
+        priority: Priority,
+        timerText: String
+    ) -> BreakAnimationState {
+        make(priority: priority, timerText: timerText, animationState: .session)
     }
 
-    static func `break`(_ task: Task) -> BreakAnimationState {
-        .init(task: task, animationState: .break)
+    static func `break`(
+        priority: Priority,
+        timerText: String
+    ) -> BreakAnimationState {
+        make(priority: priority, timerText: timerText, animationState: .break)
     }
 
-    static func finish(_ task: Task) -> BreakAnimationState {
-        .init(task: task, animationState: .finish)
+    static func finish(
+        priority: Priority,
+        timerText: String
+    ) -> BreakAnimationState {
+        make(priority: priority, timerText: timerText, animationState: .finish)
+    }
+
+    private static func make(
+        priority: Priority,
+        timerText: String,
+        animationState: AnimationState
+    ) -> BreakAnimationState {
+        .init(
+            priority: priority,
+            timerText: timerText,
+            animationState: animationState
+        )
     }
 }
 
@@ -207,16 +238,9 @@ private enum GIFImageLoader {
 }
 
 #Preview {
-    let task = Task(
-        title: "Kerjain Tugas",
-        dueAt: Date().timeIntervalSince1970 + 60 * 60,
-        duration: 60 * 60,
-        importance: .high
-    )
-
     VStack(spacing: 24) {
-        BreakAnimationState.session(task)
-        BreakAnimationState.break(task)
-        BreakAnimationState.finish(task)
+        BreakAnimationState.session(priority: .doNow, timerText: "37:21")
+        BreakAnimationState.break(priority: .schedule, timerText: "15:00")
+        BreakAnimationState.finish(priority: .delegate, timerText: "41:52")
     }
 }
