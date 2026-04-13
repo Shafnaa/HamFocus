@@ -43,24 +43,20 @@ import SwiftUI
 //}
 import SwiftUI
 
-enum FocusSession {
-    case work
-    case breaking
-}
 
 struct DeepFocusLabel: View {
-    let session: FocusSession
+    let session: FocusState
 
     private var title: String {
         switch session {
-        case .work:     return "Let's Get to Work!"
+        case .working:     return "Let's Get to Work!"
         case .breaking: return "Time for a Break"
         }
     }
 
     private var subtitle: String? {
         switch session {
-        case .work:     return "Stay on the wheel, finish what matters!"
+        case .working:     return "Stay on the wheel, finish what matters!"
         case .breaking: return "Short breaks improve focus.\nTake a moment to reset."
         }
     }
@@ -84,7 +80,7 @@ struct DeepFocusLabel: View {
 
 #Preview {
     VStack {
-        DeepFocusLabel(session: .work)
+        DeepFocusLabel(session: .working)
         DeepFocusLabel(session: .breaking)
         Spacer()
     }

@@ -14,7 +14,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-            
+
             TabTaskListView()
                 .tabItem {
                     Label("Task List", systemImage: "list.bullet")
@@ -24,5 +24,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView().environment(AppViewModel())
+    ContentView()
+        .environment(AppViewModel())
+        .environmentObject(FocusViewModel.shared)
 }

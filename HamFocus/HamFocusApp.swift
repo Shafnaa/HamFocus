@@ -12,6 +12,7 @@ struct HamFocusApp: App {
     // MARK: - App State
 
     @State private var appViewModel = AppViewModel()
+    @StateObject private var focusViewModel = FocusViewModel.shared // For ObservableObject
     @State private var requestAuthorizer = RequestAuthorizer()
 
     var body: some Scene {
@@ -20,7 +21,9 @@ struct HamFocusApp: App {
             Group {
                 if requestAuthorizer.isAuthorized {
                     ContentView()
-                        .environment(appViewModel)
+                // 2. Inject BOTH into the environment
+                      .environment(appViewModel)           // Modern bucket
+                      .environmentObject(focusViewModel)    // Classic bucket
                 } else {
                     IntroView {
                         requestAuthorizer.requestAuthorization()
