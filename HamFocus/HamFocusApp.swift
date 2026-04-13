@@ -9,16 +9,30 @@ import SwiftUI
 
 @main
 struct HamFocusApp: App {
-    // 1. Create the instances
-    @State private var appViewModel = AppViewModel() // For @Observable
+    // MARK: - App State
+
+    @State private var appViewModel = AppViewModel()
     @StateObject private var focusViewModel = FocusViewModel.shared // For ObservableObject
-    
+    @State private var requestAuthorizer = RequestAuthorizer()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            // Gate the main app until Screen Time access is approved.
+            Group {
+                if requestAuthorizer.isAuthorized {
+                    ContentView()
                 // 2. Inject BOTH into the environment
-                .environment(appViewModel)           // Modern bucket
-                .environmentObject(focusViewModel)    // Classic bucket
+                      .environment(appViewModel)           // Modern bucket
+                      .environmentObject(focusViewModel)    // Classic bucket
+                } else {
+                    IntroView {
+                        requestAuthorizer.requestAuthorization()
+                    }
+                }
+            }
+            .onAppear {
+                requestAuthorizer.refreshAuthorizationStatus()
+            }
         }
     }
 }
