@@ -50,11 +50,11 @@ class AppViewModel {
 
         do {
             try newTask.save()
-
-            refreshTask()
         } catch {
 
         }
+
+        refreshTask()
     }
 
     func deleteTask(at offsets: IndexSet) {
@@ -65,6 +65,16 @@ class AppViewModel {
 
             }
         }
+    }
+
+    func deleteTask(of task: Task) {
+        do {
+            try task.delete()
+        } catch {
+
+        }
+
+        refreshTask()
     }
 
     //    MARK: Session
@@ -89,11 +99,11 @@ class AppViewModel {
 
         do {
             try newSession.save()
-
-            refreshSession()
         } catch {
 
         }
+
+        refreshSession()
     }
 
     func deleteSession(at offsets: IndexSet) {
@@ -105,7 +115,17 @@ class AppViewModel {
             }
         }
     }
-    
+
+    func deleteSession(of session: Session) {
+        do {
+            try session.delete()
+        } catch {
+
+        }
+
+        refreshSession()
+    }
+
     // MARK: get top three
     //get top three tasks that are already sorted by the priority
     /// Fungsi untuk mengambil 3 task teratas berdasarkan priorityValue
@@ -113,17 +133,18 @@ class AppViewModel {
         // 1. Filter: Hanya ambil task yang belum selesai
         // 2. Sort: Urutkan berdasarkan priorityValue (Urgency * Importance) dari besar ke kecil
         // 3. Prefix: Ambil 3 data pertama
-        return tasks
+        return
+            tasks
             .filter { !$0.isCompleted }
             .sorted(by: { $0.priorityValue > $1.priorityValue })
             .prefix(3)
             .map { $0 }
     }
-    
+
     func sortTasks() -> [Task] {
-        return tasks
+        return
+            tasks
             .sorted(by: { $0.priorityValue > $1.priorityValue })
-            .map { $0 }
     }
 
     func editTask(
@@ -135,7 +156,9 @@ class AppViewModel {
         importance: Importance,
         isCompleted: Bool,
     ) {
-        guard let editedTask = tasks.first(where: { $0.id == taskId }) else { return }
+        guard let editedTask = tasks.first(where: { $0.id == taskId }) else {
+            return
+        }
 
         editedTask.title = title
         editedTask.note = note

@@ -6,19 +6,100 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1DF9DEE32F8BDFBA00634971 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */; };
+		1DF9DEE52F8BDFBA00634971 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */; };
+		1DF9DEF62F8BDFBA00634971 /* FocusWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1DF9DEF42F8BDFBA00634971 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5BC30CD32F83558100361355 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DF9DEDF2F8BDFB900634971;
+			remoteInfo = FocusWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1DF9DEF72F8BDFBA00634971 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1DF9DEF62F8BDFBA00634971 /* FocusWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1D79D15B2F8C7DA2008894CC /* FocusWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusWidgetExtension.entitlements; sourceTree = "<group>"; };
+		1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FocusWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		5BC30CDB2F83558100361355 /* HamFocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamFocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1DF9DEFA2F8BDFBA00634971 /* Exceptions for "FocusWidget" folder in "FocusWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;
+		};
+		1DF9DEFD2F8BDFEE00634971 /* Exceptions for "HamFocus" folder in "HamFocus" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5BC30CDA2F83558100361355 /* HamFocus */;
+		};
+		1DF9DF032F8BE31500634971 /* Exceptions for "HamFocus" folder in "FocusWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/FocusAttributes.swift,
+				Models/FocusIntent.swift,
+				ViewModel/LiveActivityViewModel.swift,
+			);
+			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1DF9DEE62F8BDFBA00634971 /* FocusWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1DF9DEFA2F8BDFBA00634971 /* Exceptions for "FocusWidget" folder in "FocusWidgetExtension" target */,
+			);
+			path = FocusWidget;
+			sourceTree = "<group>";
+		};
 		5BC30CDD2F83558100361355 /* HamFocus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1DF9DEFD2F8BDFEE00634971 /* Exceptions for "HamFocus" folder in "HamFocus" target */,
+				1DF9DF032F8BE31500634971 /* Exceptions for "HamFocus" folder in "FocusWidgetExtension" target */,
+			);
 			path = HamFocus;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1DF9DEDD2F8BDFB900634971 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DF9DEE52F8BDFBA00634971 /* SwiftUI.framework in Frameworks */,
+				1DF9DEE32F8BDFBA00634971 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC30CD82F83558100361355 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -29,10 +110,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DF9DEE12F8BDFB900634971 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */,
+				1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5BC30CD22F83558100361355 = {
 			isa = PBXGroup;
 			children = (
+				1D79D15B2F8C7DA2008894CC /* FocusWidgetExtension.entitlements */,
 				5BC30CDD2F83558100361355 /* HamFocus */,
+				1DF9DEE62F8BDFBA00634971 /* FocusWidget */,
+				1DF9DEE12F8BDFB900634971 /* Frameworks */,
 				5BC30CDC2F83558100361355 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				5BC30CDB2F83558100361355 /* HamFocus.app */,
+				1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +142,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DF9DEFB2F8BDFBA00634971 /* Build configuration list for PBXNativeTarget "FocusWidgetExtension" */;
+			buildPhases = (
+				1DF9DEDC2F8BDFB900634971 /* Sources */,
+				1DF9DEDD2F8BDFB900634971 /* Frameworks */,
+				1DF9DEDE2F8BDFB900634971 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1DF9DEE62F8BDFBA00634971 /* FocusWidget */,
+			);
+			name = FocusWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FocusWidgetExtension;
+			productReference = 1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		5BC30CDA2F83558100361355 /* HamFocus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BC30CE62F83558200361355 /* Build configuration list for PBXNativeTarget "HamFocus" */;
@@ -55,10 +171,12 @@
 				5BC30CD72F83558100361355 /* Sources */,
 				5BC30CD82F83558100361355 /* Frameworks */,
 				5BC30CD92F83558100361355 /* Resources */,
+				1DF9DEF72F8BDFBA00634971 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1DF9DEF52F8BDFBA00634971 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5BC30CDD2F83558100361355 /* HamFocus */,
@@ -80,6 +198,9 @@
 				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
+					1DF9DEDF2F8BDFB900634971 = {
+						CreatedOnToolsVersion = 26.4;
+					};
 					5BC30CDA2F83558100361355 = {
 						CreatedOnToolsVersion = 26.4;
 					};
@@ -100,11 +221,19 @@
 			projectRoot = "";
 			targets = (
 				5BC30CDA2F83558100361355 /* HamFocus */,
+				1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1DF9DEDE2F8BDFB900634971 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC30CD92F83558100361355 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +244,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1DF9DEDC2F8BDFB900634971 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC30CD72F83558100361355 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +260,77 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1DF9DEF52F8BDFBA00634971 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;
+			targetProxy = 1DF9DEF42F8BDFBA00634971 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1DF9DEF82F8BDFBA00634971 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FocusWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D926JM6B44;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocusWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FocusWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saujanashafi.HamFocus.FocusWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1DF9DEF92F8BDFBA00634971 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FocusWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D926JM6B44;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocusWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FocusWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saujanashafi.HamFocus.FocusWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		5BC30CE42F83558200361355 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -251,11 +457,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HamFocus/HamFocus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48PQRZPVR4;
+				DEVELOPMENT_TEAM = D926JM6B44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HamFocus/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -283,11 +492,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HamFocus/HamFocus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48PQRZPVR4;
+				DEVELOPMENT_TEAM = D926JM6B44;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HamFocus/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -313,6 +525,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1DF9DEFB2F8BDFBA00634971 /* Build configuration list for PBXNativeTarget "FocusWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DF9DEF82F8BDFBA00634971 /* Debug */,
+				1DF9DEF92F8BDFBA00634971 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5BC30CD62F83558100361355 /* Build configuration list for PBXProject "HamFocus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

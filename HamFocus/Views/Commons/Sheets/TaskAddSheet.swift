@@ -113,7 +113,7 @@ struct TaskAddSheet<Content: View>: View {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button(action: {
                                 guard handleAdd() else {
-                                    print(errorTaskTitle!)
+                                    print(errorTaskTitle ?? "")
                                     return
                                 }
 

@@ -11,47 +11,64 @@ import SwiftUI
 struct TaskListView: View {
     var taskList: [Task]
 
+    var onDeleteAction: (_ task: Task) -> Void
+    var onCheckAction: (_ task: Task) -> Void
+
     var body: some View {
-        List {
-            ForEach(taskList) { task in
-                TaskListItemView(
-                    task: task
-                )
+        if taskList.isEmpty {
+            Text("Task is empty")
+        } else {
+            List {
+                ForEach(taskList) { task in
+                    TaskListItemView(
+                        task: task,
+                        onDeleteAction: { task in
+                            onDeleteAction(task)
+                        },
+                        onCheckAction: { task in
+                            onCheckAction(task)
+                        },
+                    )
+                }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .clipShape(RoundedRectangle(cornerRadius: 24))
         }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .clipShape(RoundedRectangle(cornerRadius: 24))
     }
 }
 
-struct TaskListViewPreview: PreviewProvider {
-    static var taskList: [Task] = [
-        Task(
-            title: "Task",
-            dueAt: Date().timeIntervalSince1970,
-            duration: 6000,
-            importance: .high,
-        ),
-        Task(
-            title: "Task",
-            dueAt: Date().timeIntervalSince1970,
-            duration: 6000,
-            importance: .high,
-        ),
-        Task(
-            title: "Task",
-            dueAt: Date().timeIntervalSince1970,
-            duration: 6000,
-            importance: .high,
-        ),
-    ]
-
-    @ViewBuilder static var previews: some View {
-        TaskListView(taskList: taskList)
-    }
+#Preview("Populated") {
+    TaskListView(
+        taskList: [
+            Task(
+                title: "Task",
+                dueAt: Date().timeIntervalSince1970,
+                duration: 6000,
+                importance: .high,
+            ),
+            Task(
+                title: "Task",
+                dueAt: Date().timeIntervalSince1970,
+                duration: 6000,
+                importance: .high,
+            ),
+            Task(
+                title: "Task",
+                dueAt: Date().timeIntervalSince1970,
+                duration: 6000,
+                importance: .high,
+            ),
+        ],
+        onDeleteAction: { task in },
+        onCheckAction: { task in },
+    )
 }
 
-#Preview {
-    TaskListViewPreview.previews
+#Preview("Empty") {
+    TaskListView(
+        taskList: [],
+        onDeleteAction: { task in },
+        onCheckAction: { task in },
+    )
 }
