@@ -8,10 +8,13 @@
 import FamilyControls
 import Observation
 
+/// Wraps Screen Time authorization status so the app root can react to changes.
 @MainActor
 @Observable
 class RequestAuthorizer {
     private(set) var authorizationStatus: AuthorizationStatus
+
+    // MARK: - Status
 
     var isAuthorized: Bool {
         authorizationStatus == .approved
@@ -23,6 +26,9 @@ class RequestAuthorizer {
         self.authorizationStatus = authorizationStatus
     }
 
+    // MARK: - Authorization
+
+    /// Presents Apple's Screen Time authorization flow and refreshes local status afterward.
     func requestAuthorization() {
         Swift.Task { @MainActor in
             do {
@@ -38,6 +44,7 @@ class RequestAuthorizer {
         }
     }
 
+    /// Reads the latest authorization value from FamilyControls.
     func refreshAuthorizationStatus() {
         authorizationStatus = AuthorizationCenter.shared.authorizationStatus
     }

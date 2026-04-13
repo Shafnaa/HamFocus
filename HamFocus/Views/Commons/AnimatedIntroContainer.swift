@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Hosts the single-screen intro and forwards the authorization action.
 struct AnimatedIntroContainer: View {
     @State private var viewModel = IntroViewModel()
     let onRequestAuthorization: () -> Void
@@ -19,6 +20,7 @@ struct AnimatedIntroContainer: View {
                 title: viewModel.buttonTitle,
                 iconName: "shield.lefthalf.filled"
             ) {
+                // The Screen Time permission modal is presented by the system.
                 viewModel.requestAuthorization(
                     using: onRequestAuthorization
                 )

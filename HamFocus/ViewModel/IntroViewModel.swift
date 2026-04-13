@@ -10,6 +10,8 @@ import Foundation
 @MainActor
 @Observable
 class IntroViewModel {
+    // MARK: - Intro Copy
+
     let title = "One Last Step"
     let subtitle = "We need Screen Time Access to get started"
     let imageName = "HamsterOnFire"
@@ -21,6 +23,9 @@ class IntroViewModel {
         "No tracking. No weird stuff. Just better focus.",
     ]
 
+    // MARK: - Authorization
+
+    /// Runs the authorization action provided by the screen container.
     func requestAuthorization(using authorize: @escaping () -> Void) {
         authorize()
     }

@@ -7,8 +7,11 @@
 
 import SwiftUI
 
+/// Displays the Screen Time access intro copy and illustration.
 struct PermissionsIntroScreen: View {
     @Bindable var viewModel: IntroViewModel
+
+    // MARK: - Animation State
 
     @State private var showContent: Bool = false
     @State private var imageScale: CGFloat = 0.5
@@ -33,6 +36,7 @@ struct PermissionsIntroScreen: View {
 
             Spacer()
 
+            // Decorative pulse around the HamsterOnFire asset.
             ZStack {
                 ForEach(0..<2) { index in
                     Circle()
@@ -86,6 +90,7 @@ struct PermissionsIntroScreen: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 24)
         .onAppear {
+            // Stagger the intro elements for a softer first launch.
             withAnimation(
                 .spring(response: 0.8, dampingFraction: 0.6, blendDuration: 0)
                     .delay(0.2)

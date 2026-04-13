@@ -9,11 +9,14 @@ import SwiftUI
 
 @main
 struct HamFocusApp: App {
+    // MARK: - App State
+
     @State private var appViewModel = AppViewModel()
     @State private var requestAuthorizer = RequestAuthorizer()
 
     var body: some Scene {
         WindowGroup {
+            // Gate the main app until Screen Time access is approved.
             Group {
                 if requestAuthorizer.isAuthorized {
                     ContentView()
