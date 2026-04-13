@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct HamFocusApp: App {
+    @State private var appViewModel = AppViewModel()
+    @State private var requestAuthorizer = RequestAuthorizer()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if requestAuthorizer.isAuthorized {
+                    ContentView()
+                        .environment(appViewModel)
+                } else {
+                    IntroView {
+                        requestAuthorizer.requestAuthorization()
+                    }
+                }
+            }
+            .onAppear {
+                requestAuthorizer.refreshAuthorizationStatus()
+            }
         }
     }
 }

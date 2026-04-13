@@ -5,32 +5,40 @@
 //  Created by Saujana Shafi on 06/04/26.
 //
 
-import Combine
-import DeviceActivity
 import FamilyControls
-import ManagedSettings
-import SwiftUI
+import Observation
 
-class RequestAuthorizer: ObservableObject {
-    @Published var isAuthorized = false
+@MainActor
+@Observable
+class RequestAuthorizer {
+    private(set) var authorizationStatus: AuthorizationStatus
+
+    var isAuthorized: Bool {
+        authorizationStatus == .approved
+    }
+
+    init(
+        authorizationStatus: AuthorizationStatus = AuthorizationCenter.shared.authorizationStatus
+    ) {
+        self.authorizationStatus = authorizationStatus
+    }
 
     func requestAuthorization() {
-        Swift.Task {
+        Swift.Task { @MainActor in
             do {
                 try await AuthorizationCenter.shared.requestAuthorization(
                     for: .individual
                 )
                 print("Individual authorization successful")
-
-                self.isAuthorized = true
             } catch {
                 print("Error requesting authorization: \(error)")
-                self.isAuthorized = false
             }
+
+            refreshAuthorizationStatus()
         }
     }
 
-    func getAuthorizationStatus() -> AuthorizationStatus {
-        return AuthorizationCenter.shared.authorizationStatus
+    func refreshAuthorizationStatus() {
+        authorizationStatus = AuthorizationCenter.shared.authorizationStatus
     }
 }

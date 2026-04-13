@@ -8,35 +8,32 @@
 import SwiftUI
 
 struct PermissionsIntroScreen: View {
-    let showPasscodeMessage: Bool
+    @Bindable var viewModel: IntroViewModel
 
     @State private var showContent: Bool = false
-    @State private var shieldScale: CGFloat = 0.5
+    @State private var imageScale: CGFloat = 0.5
     @State private var pulseAnimation: Bool = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Heading
-            // Header
+        VStack(spacing: 28) {
             VStack(spacing: 8) {
-                Text("One Last Step")
+                Text(viewModel.title)
                     .font(.system(size: 34, weight: .bold))
                     .foregroundColor(.primary)
                     .opacity(showContent ? 1 : 0)
                     .offset(y: showContent ? 0 : -20)
 
-                Text("We need Screen Time Access to get started")
-                    .font(.system(size: 16))
+                Text(viewModel.subtitle)
+                    .font(.system(size: 17, weight: .medium))
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
                     .opacity(showContent ? 1 : 0)
                     .offset(y: showContent ? 0 : -20)
             }
 
             Spacer()
 
-            // Shield icon with pulse animation
             ZStack {
-                // Pulse rings
                 ForEach(0..<2) { index in
                     Circle()
                         .stroke(
@@ -61,90 +58,45 @@ struct PermissionsIntroScreen: View {
                         )
                 }
 
-                // Shield icon
-                Image("ShieldIcon")
+                Image(viewModel.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .scaleEffect(shieldScale)
+                    .frame(width: 220, height: 220)
+                    .scaleEffect(imageScale)
                     .opacity(showContent ? 1 : 0)
             }
-            .frame(height: 360)
+            .frame(height: 260)
 
-            Spacer()
-
-            // Message text
-            VStack(spacing: 16) {
-                {
-                    var attr = AttributedString(
-                        "Foqos is 100% open source, read the code yourself if you're skeptical. We don't care who you are, we just want you to live with focus and intention."
-                    )
-                    if let range = attr.range(of: "read the code yourself") {
-                        attr[range].foregroundColor = .accentColor
-                    }
-                    return Text(attr)
-                }()
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .lineSpacing(4)
-                .onTapGesture {
-                    if let url = URL(
-                        string: "https://github.com/awaseem/foqos"
-                    ) {
-                        UIApplication.shared.open(url)
-                    }
-                }
-
-                Text(
-                    "No account required. No subscription fees. No tracking. No BS."
-                )
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .lineSpacing(4)
-
-                // Passcode warning message
-                if showPasscodeMessage {
-                    HStack(spacing: 8) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.orange)
-                        Text(
-                            "Still here? You need to set a passcode on your phone for Screen Time to work properly."
-                        )
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.orange)
+            VStack(spacing: 14) {
+                ForEach(Array(viewModel.messageLines.enumerated()), id: \.offset) { index, line in
+                    Text(line)
+                        .font(index == 0 ? .system(size: 20, weight: .semibold) : .system(size: 17, weight: .medium))
+                        .foregroundColor(index == 0 || index == viewModel.messageLines.count - 1 ? .primary : .secondary)
                         .multilineTextAlignment(.center)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.orange.opacity(0.15))
-                    )
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                        .lineSpacing(4)
                 }
+
             }
             .padding(.horizontal, 10)
             .opacity(showContent ? 1 : 0)
             .offset(y: showContent ? 0 : 20)
+
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 24)
         .onAppear {
-            // Shield scale animation
             withAnimation(
                 .spring(response: 0.8, dampingFraction: 0.6, blendDuration: 0)
                     .delay(0.2)
             ) {
-                shieldScale = 1.0
+                imageScale = 1.0
             }
 
-            // Content fade in
             withAnimation(.easeOut(duration: 0.6).delay(0.3)) {
                 showContent = true
             }
 
-            // Start pulse animation
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 pulseAnimation = true
             }
@@ -153,6 +105,6 @@ struct PermissionsIntroScreen: View {
 }
 
 #Preview {
-    PermissionsIntroScreen(showPasscodeMessage: false)
+    PermissionsIntroScreen(viewModel: IntroViewModel())
         .background(Color(.systemBackground))
 }
