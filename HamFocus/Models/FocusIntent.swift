@@ -14,9 +14,7 @@ struct StopSessionIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Stop Session"
 
     func perform() async throws -> some IntentResult {
-        let groupDefaults = UserDefaults(
-            suiteName: "group.com.felicia.HamFocus"
-        )
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
 
         // 1. Send a "Stop" signal through the tunnel
         groupDefaults?.set(true, forKey: "shouldStopSession")
@@ -39,15 +37,17 @@ struct ToggleBreakIntent: LiveActivityIntent {
     // FocusIntent.swift inside ToggleBreakIntent
 
     func perform() async throws -> some IntentResult {
-        let groupDefaults = UserDefaults(suiteName: "group.com.felicia.HamFocus")
-        
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
+
         // 1. Get current state and saved time
-        let currentMode = groupDefaults?.string(forKey: "currentMode") ?? "focus"
+        let currentMode =
+            groupDefaults?.string(forKey: "currentMode") ?? "focus"
         let nextMode = (currentMode == "focus") ? "breakTime" : "focus"
-        let savedElapsed = groupDefaults?.double(forKey: "savedElapsedTime") ?? 0
-        
+        let savedElapsed =
+            groupDefaults?.double(forKey: "savedElapsedTime") ?? 0
+
         groupDefaults?.set(nextMode, forKey: "currentMode")
-        
+
         // 2. Update Live Activity UI
         for activity in Activity<FocusAttributes>.activities {
             let adjustedDate: Date
@@ -55,16 +55,16 @@ struct ToggleBreakIntent: LiveActivityIntent {
                 // Use the saved time so it doesn't restart at 00:00
                 adjustedDate = Date().addingTimeInterval(-savedElapsed)
             } else {
-                adjustedDate = Date() // Breaks start fresh at 15:00
+                adjustedDate = Date()  // Breaks start fresh at 15:00
             }
-            
+
             let newState = FocusAttributes.ContentState(
                 mode: nextMode == "focus" ? .focus : .breakTime,
                 startTime: adjustedDate
             )
             await activity.update(.init(state: newState, staleDate: nil))
         }
-        
+
         return .result()
     }
 }

@@ -64,6 +64,7 @@
 			membershipExceptions = (
 				Models/FocusAttributes.swift,
 				Models/FocusIntent.swift,
+				Utils/AppConfig.swift,
 				ViewModel/LiveActivityViewModel.swift,
 			);
 			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;

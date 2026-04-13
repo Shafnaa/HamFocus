@@ -56,9 +56,7 @@ class FocusViewModel: ObservableObject {
             queue: .main
         ) { [weak self] _ in
             guard let self = self else { return }
-            let groupDefaults = UserDefaults(
-                suiteName: "group.com.felicia.HamFocus"
-            )
+            let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
             let signalMode = groupDefaults?.string(forKey: "currentMode")
 
             // Sync your app state with the widget's click
@@ -175,12 +173,14 @@ class FocusViewModel: ObservableObject {
 
         // FocusViewModel.swift inside startStopwatch()
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
+            [weak self] _ in
             guard let self = self, let start = self.startTime else { return }
-            self.elapsedTime = Date().timeIntervalSince(start) + self.accumulatedTime
-            
+            self.elapsedTime =
+                Date().timeIntervalSince(start) + self.accumulatedTime
+
             // --- SAVE TO TUNNEL ---
-            let shared = UserDefaults(suiteName: "group.com.felicia.HamFocus")
+            let shared = UserDefaults(suiteName: AppConfig.appGroupID)
             shared?.set(self.elapsedTime, forKey: "savedElapsedTime")
         }
     }
@@ -227,10 +227,10 @@ class FocusViewModel: ObservableObject {
 
         //switch live activity back to focus
         liveActivityManager.start(
-                taskName: currentTask?.title ?? "Focus",
-                mode: .focus,
-                elapsedTime: self.elapsedTime // Pass the time we just saved!
-            )
+            taskName: currentTask?.title ?? "Focus",
+            mode: .focus,
+            elapsedTime: self.elapsedTime  // Pass the time we just saved!
+        )
         startStopwatch()
     }
 

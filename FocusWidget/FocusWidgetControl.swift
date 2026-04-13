@@ -10,7 +10,7 @@ import SwiftUI
 import WidgetKit
 
 struct FocusWidgetControl: ControlWidget {
-    static let kind: String = "com.saujanashafi.HamFocus.FocusWidget"
+    static let kind: String = AppConfig.widgetKind
 
     var body: some ControlWidgetConfiguration {
         AppIntentControlConfiguration(
@@ -38,12 +38,20 @@ extension FocusWidgetControl {
 
     struct Provider: AppIntentControlValueProvider {
         func previewValue(configuration: TimerConfiguration) -> Value {
-            FocusWidgetControl.Value(isRunning: false, name: configuration.timerName)
+            FocusWidgetControl.Value(
+                isRunning: false,
+                name: configuration.timerName
+            )
         }
 
-        func currentValue(configuration: TimerConfiguration) async throws -> Value {
-            let isRunning = true // Check if the timer is running
-            return FocusWidgetControl.Value(isRunning: isRunning, name: configuration.timerName)
+        func currentValue(configuration: TimerConfiguration) async throws
+            -> Value
+        {
+            let isRunning = true  // Check if the timer is running
+            return FocusWidgetControl.Value(
+                isRunning: isRunning,
+                name: configuration.timerName
+            )
         }
     }
 }
