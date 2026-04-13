@@ -14,16 +14,20 @@ struct HamFocusApp: App {
     @State private var appViewModel = AppViewModel()
     @StateObject private var focusViewModel = FocusViewModel.shared // For ObservableObject
     @State private var requestAuthorizer = RequestAuthorizer()
+    @State private var hasShieldSelection = ShieldActivitySelectionStore.hasSavedSelection()
 
     var body: some Scene {
         WindowGroup {
             // Gate the main app until Screen Time access is approved.
             Group {
-                if requestAuthorizer.isAuthorized {
+                if requestAuthorizer.isAuthorized && hasShieldSelection {
                     ContentView()
-                // 2. Inject BOTH into the environment
-                      .environment(appViewModel)           // Modern bucket
-                      .environmentObject(focusViewModel)    // Classic bucket
+                        .environment(appViewModel)
+                        .environmentObject(focusViewModel)
+                } else if requestAuthorizer.isAuthorized {
+                    ShieldSelectionView {
+                        hasShieldSelection = ShieldActivitySelectionStore.hasSavedSelection()
+                    }
                 } else {
                     IntroView {
                         requestAuthorizer.requestAuthorization()
@@ -32,6 +36,7 @@ struct HamFocusApp: App {
             }
             .onAppear {
                 requestAuthorizer.refreshAuthorizationStatus()
+                hasShieldSelection = ShieldActivitySelectionStore.hasSavedSelection()
             }
         }
     }

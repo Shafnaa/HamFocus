@@ -111,8 +111,9 @@ class FocusViewModel: ObservableObject {
             endedAt: nil,
         )
 
+        FocusDeviceActivityMonitor.startMonitoring()
         startStopwatch()
-        //start live activity
+
         liveActivityManager.start(
             taskName: task.title ?? "Focus Task",
             mode: .focus
@@ -120,10 +121,9 @@ class FocusViewModel: ObservableObject {
     }
 
     /// stop the focus mode and return to home screen
-    /// stop the focus mode and return to home screen
     func stopFocusMode(done: Bool, onDelete: (() -> Void)? = nil) {
         timer?.invalidate()
-        //stop live activity
+        FocusDeviceActivityMonitor.stopMonitoring()
         liveActivityManager.stop()
 
         let now = Date()

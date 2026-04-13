@@ -20,7 +20,8 @@ class DataBase {
             self.persistenceStack = try PersistenceStack(
                 modelTypes: [
                     Task.self,
-                    Session.self
+                    Session.self,
+                    ShieldActivitySelectionRecord.self
                 ],
                 isMemoryOnly: false
             )
