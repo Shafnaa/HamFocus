@@ -44,10 +44,10 @@ struct SplashScreenView: View {
                 Spacer()
                 
                 // Hamster peeping from the bottom
-                Image("HamsterIdle")
+                Image("HamsterIdleFix")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 670)
+                    .frame(width: 640)
                     .offset(y: hamsterOffset) // moves based on state
                     .frame(maxWidth: .infinity)
             }
