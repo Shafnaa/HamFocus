@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Onboardingview: View {
-    @State private var name = ""
+    @AppStorage("userName") private var name = ""
 
     var body: some View {
         NavigationStack {
