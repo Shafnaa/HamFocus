@@ -13,29 +13,62 @@ enum FocusState {
     case breaking  // Show 15:00 Countdown
 }
 
+@MainActor
 class FocusViewModel: ObservableObject {
+    ///Shared Instance for AppIntents to find
+    static let shared = FocusViewModel()
     //MARK: variable
-    //to trigger the focus mode
+    ///to trigger the focus mode
     @Published var isFocusModeActive: Bool = false
-    //the current task to pass for the focus mode
+    ///the current task to pass for the focus mode
     @Published var currentTask: Task?
-    //log the current session
+    ///log the current session
     var currentSession: Timestamp?
-    //time passed
+    ///time passed
     @Published var elapsedTime: TimeInterval = 0
-    //accumulated time to save for after breaks
+    ///accumulated time to save for after breaks
     private var accumulatedTime: TimeInterval = 0
-    //current default state when entering focusstate
+    ///current default state when entering focusstate
     @Published var currentState: FocusState = .working
-    //15 minutes breaktime
+    ///15 minutes breaktime
     @Published var breakTimeRemaining: TimeInterval = 15 * 60
-    //timer
+    ///timer
     private var timer: Timer?
-    //starttime
+    ///starttime
     private var startTime: Date?
 
     @Published var isDone: Bool = false
     @Published var totalTime: TimeInterval = 0
+    ///Live Activity Manager
+    private let liveActivityManager = LiveActivityViewModel()
+
+    init() {
+        // Start listening for signals from the Widget
+        observeWidgetSignals()
+    }
+
+    ///get signal from the widget
+    private func observeWidgetSignals() {
+        // Listen for when UserDefaults changes (the signal from the Intent)
+        NotificationCenter.default.addObserver(
+            forName: UserDefaults.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            let groupDefaults = UserDefaults(
+                suiteName: "group.com.felicia.HamFocus"
+            )
+            let signalMode = groupDefaults?.string(forKey: "currentMode")
+
+            // Sync your app state with the widget's click
+            if signalMode == "breakTime" && self.currentState == .working {
+                self.startBreakMode()
+            } else if signalMode == "focus" && self.currentState == .breaking {
+                self.stopBreakMode()
+            }
+        }
+    }
 
     //MARK: RESET VIEWMODEL
     ///to reset the viewmodel to have a clean start everytime
@@ -81,12 +114,19 @@ class FocusViewModel: ObservableObject {
         )
 
         startStopwatch()
+        //start live activity
+        liveActivityManager.start(
+            taskName: task.title ?? "Focus Task",
+            mode: .focus
+        )
     }
 
     /// stop the focus mode and return to home screen
     /// stop the focus mode and return to home screen
     func stopFocusMode(done: Bool, onDelete: (() -> Void)? = nil) {
         timer?.invalidate()
+        //stop live activity
+        liveActivityManager.stop()
 
         let now = Date()
 
@@ -131,12 +171,17 @@ class FocusViewModel: ObservableObject {
         timer?.invalidate()
         startTime = Date()  // Fresh start point for this "segment"
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
-            [weak self] _ in
+        // FocusViewModel.swift inside startStopwatch()
+
+        // FocusViewModel.swift inside startStopwatch()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self, let start = self.startTime else { return }
-            // Current segment + whatever we did before pausing
-            self.elapsedTime =
-                Date().timeIntervalSince(start) + self.accumulatedTime
+            self.elapsedTime = Date().timeIntervalSince(start) + self.accumulatedTime
+            
+            // --- SAVE TO TUNNEL ---
+            let shared = UserDefaults(suiteName: "group.com.felicia.HamFocus")
+            shared?.set(self.elapsedTime, forKey: "savedElapsedTime")
         }
     }
 
@@ -153,6 +198,12 @@ class FocusViewModel: ObservableObject {
     func startBreakMode() {
         timer?.invalidate()
         pauseStopwatch()  // Automatically stop the focus work
+
+        //restart the timer
+        liveActivityManager.start(
+            taskName: currentTask?.title ?? "Break",
+            mode: .breakTime
+        )
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
             [weak self] _ in
@@ -173,6 +224,13 @@ class FocusViewModel: ObservableObject {
 
         // Switch state back to working and start the clock immediately
         currentState = .working
+
+        //switch live activity back to focus
+        liveActivityManager.start(
+                taskName: currentTask?.title ?? "Focus",
+                mode: .focus,
+                elapsedTime: self.elapsedTime // Pass the time we just saved!
+            )
         startStopwatch()
     }
 

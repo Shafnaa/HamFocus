@@ -48,6 +48,7 @@ struct TabHomeView: View {
 }
 
 #Preview {
-    TabHomeView().environment(AppViewModel())
-        .environmentObject(FocusViewModel())
+    TabHomeView()
+        .environment(AppViewModel())
+        .environmentObject(FocusViewModel.shared) // <--- Add this
 }

@@ -9,14 +9,16 @@ import SwiftUI
 
 @main
 struct HamFocusApp: App {
-    @State private var appVM: AppViewModel = .init()
-    @StateObject private var focusVM: FocusViewModel = .init()
-
+    // 1. Create the instances
+    @State private var appViewModel = AppViewModel() // For @Observable
+    @StateObject private var focusViewModel = FocusViewModel.shared // For ObservableObject
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(appVM)
-                .environmentObject(focusVM)
+                // 2. Inject BOTH into the environment
+                .environment(appViewModel)           // Modern bucket
+                .environmentObject(focusViewModel)    // Classic bucket
         }
     }
 }

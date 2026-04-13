@@ -26,5 +26,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(AppViewModel())
-        .environmentObject(FocusViewModel())
+        .environmentObject(FocusViewModel.shared)
 }

@@ -43,5 +43,7 @@ struct TabTaskListView: View {
 }
 
 #Preview {
-    TabTaskListView().environment(AppViewModel())
+    TabTaskListView()
+        .environment(AppViewModel())
+        .environmentObject(FocusViewModel.shared) // <--- Add this
 }
