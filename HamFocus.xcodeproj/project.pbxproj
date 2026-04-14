@@ -10,6 +10,13 @@
 		1DF9DEE32F8BDFBA00634971 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */; };
 		1DF9DEE52F8BDFBA00634971 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */; };
 		1DF9DEF62F8BDFBA00634971 /* FocusWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C15BB7522F8CB08D008366C1 /* FocusDeviceActivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15BB7512F8CB08D008366C1 /* FocusDeviceActivityMonitor.swift */; };
+		C15BB7592F8CB1A6008366C1 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15BB7582F8CB1A6008366C1 /* DeviceActivity.framework */; };
+		C15BB7612F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C15BB7572F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C15BB76D2F8CB340008366C1 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15BB76C2F8CB340008366C1 /* ManagedSettings.framework */; };
+		C15BB76F2F8CB340008366C1 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15BB76E2F8CB340008366C1 /* ManagedSettingsUI.framework */; };
+		C15BB7772F8CB340008366C1 /* ShieldConfigurationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C15BB76B2F8CB340008366C1 /* ShieldConfigurationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C15BB77E2F8CD951008366C1 /* ShieldActivitySelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15BB77C2F8CD951008366C1 /* ShieldActivitySelectionStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,6 +27,20 @@
 			remoteGlobalIDString = 1DF9DEDF2F8BDFB900634971;
 			remoteInfo = FocusWidgetExtension;
 		};
+		C15BB75F2F8CB1A6008366C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5BC30CD32F83558100361355 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C15BB7562F8CB1A6008366C1;
+			remoteInfo = DeviceActivityMonitorExtension;
+		};
+		C15BB7752F8CB340008366C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5BC30CD32F83558100361355 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C15BB76A2F8CB340008366C1;
+			remoteInfo = ShieldConfigurationExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +50,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C15BB7612F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */,
+				C15BB7772F8CB340008366C1 /* ShieldConfigurationExtension.appex in Embed Foundation Extensions */,
 				1DF9DEF62F8BDFBA00634971 /* FocusWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -42,6 +65,13 @@
 		1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		5BC30CDB2F83558100361355 /* HamFocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamFocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15BB7512F8CB08D008366C1 /* FocusDeviceActivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDeviceActivityMonitor.swift; sourceTree = "<group>"; };
+		C15BB7572F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitorExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15BB7582F8CB1A6008366C1 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		C15BB76B2F8CB340008366C1 /* ShieldConfigurationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShieldConfigurationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15BB76C2F8CB340008366C1 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
+		C15BB76E2F8CB340008366C1 /* ManagedSettingsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettingsUI.framework; path = System/Library/Frameworks/ManagedSettingsUI.framework; sourceTree = SDKROOT; };
+		C15BB77C2F8CD951008366C1 /* ShieldActivitySelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldActivitySelectionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,6 +99,20 @@
 			);
 			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;
 		};
+		C15BB7652F8CB1A6008366C1 /* Exceptions for "DeviceActivityMonitorExtension" folder in "DeviceActivityMonitorExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C15BB7562F8CB1A6008366C1 /* DeviceActivityMonitorExtension */;
+		};
+		C15BB77B2F8CB340008366C1 /* Exceptions for "ShieldConfigurationExtension" folder in "ShieldConfigurationExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C15BB76A2F8CB340008366C1 /* ShieldConfigurationExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -87,6 +131,22 @@
 				1DF9DF032F8BE31500634971 /* Exceptions for "HamFocus" folder in "FocusWidgetExtension" target */,
 			);
 			path = HamFocus;
+			sourceTree = "<group>";
+		};
+		C15BB75A2F8CB1A6008366C1 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C15BB7652F8CB1A6008366C1 /* Exceptions for "DeviceActivityMonitorExtension" folder in "DeviceActivityMonitorExtension" target */,
+			);
+			path = DeviceActivityMonitorExtension;
+			sourceTree = "<group>";
+		};
+		C15BB7702F8CB340008366C1 /* ShieldConfigurationExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C15BB77B2F8CB340008366C1 /* Exceptions for "ShieldConfigurationExtension" folder in "ShieldConfigurationExtension" target */,
+			);
+			path = ShieldConfigurationExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -108,6 +168,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C15BB7542F8CB1A6008366C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15BB7592F8CB1A6008366C1 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15BB7682F8CB340008366C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15BB76D2F8CB340008366C1 /* ManagedSettings.framework in Frameworks */,
+				C15BB76F2F8CB340008366C1 /* ManagedSettingsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -116,6 +193,9 @@
 			children = (
 				1DF9DEE22F8BDFB900634971 /* WidgetKit.framework */,
 				1DF9DEE42F8BDFBA00634971 /* SwiftUI.framework */,
+				C15BB7582F8CB1A6008366C1 /* DeviceActivity.framework */,
+				C15BB76C2F8CB340008366C1 /* ManagedSettings.framework */,
+				C15BB76E2F8CB340008366C1 /* ManagedSettingsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,8 +206,13 @@
 				1D79D15B2F8C7DA2008894CC /* FocusWidgetExtension.entitlements */,
 				5BC30CDD2F83558100361355 /* HamFocus */,
 				1DF9DEE62F8BDFBA00634971 /* FocusWidget */,
+				C15BB75A2F8CB1A6008366C1 /* DeviceActivityMonitorExtension */,
+				C15BB7702F8CB340008366C1 /* ShieldConfigurationExtension */,
 				1DF9DEE12F8BDFB900634971 /* Frameworks */,
 				5BC30CDC2F83558100361355 /* Products */,
+				C15BB7502F8CB05C008366C1 /* DeviceActivityMonitorExtension */,
+				C15BB7662F8CB28C008366C1 /* ShieldConfigurationExtension */,
+				C15BB7802F8CDA29008366C1 /* ScreenTime */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,8 +221,33 @@
 			children = (
 				5BC30CDB2F83558100361355 /* HamFocus.app */,
 				1DF9DEE02F8BDFB900634971 /* FocusWidgetExtension.appex */,
+				C15BB7572F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex */,
+				C15BB76B2F8CB340008366C1 /* ShieldConfigurationExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C15BB7502F8CB05C008366C1 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DeviceActivityMonitorExtension;
+			sourceTree = "<group>";
+		};
+		C15BB7662F8CB28C008366C1 /* ShieldConfigurationExtension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ShieldConfigurationExtension;
+			sourceTree = "<group>";
+		};
+		C15BB7802F8CDA29008366C1 /* ScreenTime */ = {
+			isa = PBXGroup;
+			children = (
+				C15BB7512F8CB08D008366C1 /* FocusDeviceActivityMonitor.swift */,
+				C15BB77C2F8CD951008366C1 /* ShieldActivitySelectionStore.swift */,
+			);
+			path = ScreenTime;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +288,8 @@
 			);
 			dependencies = (
 				1DF9DEF52F8BDFBA00634971 /* PBXTargetDependency */,
+				C15BB7602F8CB1A6008366C1 /* PBXTargetDependency */,
+				C15BB7762F8CB340008366C1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5BC30CDD2F83558100361355 /* HamFocus */,
@@ -188,6 +300,50 @@
 			productName = HamFocus;
 			productReference = 5BC30CDB2F83558100361355 /* HamFocus.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C15BB7562F8CB1A6008366C1 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15BB7622F8CB1A6008366C1 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */;
+			buildPhases = (
+				C15BB7532F8CB1A6008366C1 /* Sources */,
+				C15BB7542F8CB1A6008366C1 /* Frameworks */,
+				C15BB7552F8CB1A6008366C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C15BB75A2F8CB1A6008366C1 /* DeviceActivityMonitorExtension */,
+			);
+			name = DeviceActivityMonitorExtension;
+			packageProductDependencies = (
+			);
+			productName = DeviceActivityMonitorExtension;
+			productReference = C15BB7572F8CB1A6008366C1 /* DeviceActivityMonitorExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		C15BB76A2F8CB340008366C1 /* ShieldConfigurationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15BB7782F8CB340008366C1 /* Build configuration list for PBXNativeTarget "ShieldConfigurationExtension" */;
+			buildPhases = (
+				C15BB7672F8CB340008366C1 /* Sources */,
+				C15BB7682F8CB340008366C1 /* Frameworks */,
+				C15BB7692F8CB340008366C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C15BB7702F8CB340008366C1 /* ShieldConfigurationExtension */,
+			);
+			name = ShieldConfigurationExtension;
+			packageProductDependencies = (
+			);
+			productName = ShieldConfigurationExtension;
+			productReference = C15BB76B2F8CB340008366C1 /* ShieldConfigurationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -203,6 +359,12 @@
 						CreatedOnToolsVersion = 26.4;
 					};
 					5BC30CDA2F83558100361355 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					C15BB7562F8CB1A6008366C1 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					C15BB76A2F8CB340008366C1 = {
 						CreatedOnToolsVersion = 26.4;
 					};
 				};
@@ -223,6 +385,8 @@
 			targets = (
 				5BC30CDA2F83558100361355 /* HamFocus */,
 				1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */,
+				C15BB7562F8CB1A6008366C1 /* DeviceActivityMonitorExtension */,
+				C15BB76A2F8CB340008366C1 /* ShieldConfigurationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +400,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5BC30CD92F83558100361355 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15BB7552F8CB1A6008366C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15BB7692F8CB340008366C1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,6 +434,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C15BB77E2F8CD951008366C1 /* ShieldActivitySelectionStore.swift in Sources */,
+				C15BB7522F8CB08D008366C1 /* FocusDeviceActivityMonitor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15BB7532F8CB1A6008366C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15BB7672F8CB340008366C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +460,16 @@
 			isa = PBXTargetDependency;
 			target = 1DF9DEDF2F8BDFB900634971 /* FocusWidgetExtension */;
 			targetProxy = 1DF9DEF42F8BDFBA00634971 /* PBXContainerItemProxy */;
+		};
+		C15BB7602F8CB1A6008366C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C15BB7562F8CB1A6008366C1 /* DeviceActivityMonitorExtension */;
+			targetProxy = C15BB75F2F8CB1A6008366C1 /* PBXContainerItemProxy */;
+		};
+		C15BB7762F8CB340008366C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C15BB76A2F8CB340008366C1 /* ShieldConfigurationExtension */;
+			targetProxy = C15BB7752F8CB340008366C1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -278,7 +482,7 @@
 				CODE_SIGN_ENTITLEMENTS = FocusWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D926JM6B44;
+				DEVELOPMENT_TEAM = YJ855C323A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FocusWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FocusWidget;
@@ -309,7 +513,7 @@
 				CODE_SIGN_ENTITLEMENTS = FocusWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D926JM6B44;
+				DEVELOPMENT_TEAM = YJ855C323A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FocusWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FocusWidget;
@@ -461,7 +665,7 @@
 				CODE_SIGN_ENTITLEMENTS = HamFocus/HamFocus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D926JM6B44;
+				DEVELOPMENT_TEAM = YJ855C323A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HamFocus/Info.plist;
@@ -496,7 +700,7 @@
 				CODE_SIGN_ENTITLEMENTS = HamFocus/HamFocus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D926JM6B44;
+				DEVELOPMENT_TEAM = YJ855C323A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HamFocus/Info.plist;
@@ -516,6 +720,122 @@
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C15BB7632F8CB1A6008366C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YJ855C323A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saujanashafi.HamFocus.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C15BB7642F8CB1A6008366C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YJ855C323A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saujanashafi.HamFocus.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C15BB7792F8CB340008366C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShieldConfigurationExtension/ShieldConfigurationExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YJ855C323A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShieldConfigurationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShieldConfigurationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heidy.HamFocus.ShieldConfigurationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C15BB77A2F8CB340008366C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShieldConfigurationExtension/ShieldConfigurationExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YJ855C323A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShieldConfigurationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShieldConfigurationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heidy.HamFocus.ShieldConfigurationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -549,6 +869,24 @@
 			buildConfigurations = (
 				5BC30CE72F83558200361355 /* Debug */,
 				5BC30CE82F83558200361355 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C15BB7622F8CB1A6008366C1 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15BB7632F8CB1A6008366C1 /* Debug */,
+				C15BB7642F8CB1A6008366C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C15BB7782F8CB340008366C1 /* Build configuration list for PBXNativeTarget "ShieldConfigurationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15BB7792F8CB340008366C1 /* Debug */,
+				C15BB77A2F8CB340008366C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
