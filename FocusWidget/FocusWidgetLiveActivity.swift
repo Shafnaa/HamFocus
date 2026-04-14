@@ -27,7 +27,7 @@ struct FocusWidgetLiveActivity: Widget {
 
                 // 2. THE RIGHT SIDE: Pushed to the edge with padding
                 VStack(alignment: .trailing, spacing: 0) {
-
+                    
                     // Task Name
                     Text(context.attributes.taskName)
                         .font(.system(.caption, design: .rounded))
@@ -121,7 +121,7 @@ struct FocusWidgetLiveActivity: Widget {
                             }
                         }
                         .font(
-                            .system(size: 34, weight: .bold, design: .rounded)
+                            .system(size: 30, weight: .bold, design: .rounded)
                         )
                         .monospacedDigit()
                         .foregroundStyle(.white)

@@ -19,20 +19,33 @@ class LiveActivityViewModel {
     func start(taskName: String, mode: FocusAttributes.SessionMode, elapsedTime: TimeInterval = 0) {
         let attributes = FocusAttributes(taskName: taskName)
         
-        // THE TRICK: Subtract the elapsed time from "Now"
-        // If elapsedTime is 600s (10 mins), the UI will think we started 10 mins ago.
-        let adjustedDate = Date().addingTimeInterval(-elapsedTime)
+        // THE "IF" GOES HERE:
+        // If we are in focus mode, we subtract elapsedTime to count UP.
+        // If we are in break mode, we use Date() (now) so the 15 mins starts from the top.
+        let adjustedDate: Date
+        if mode == .focus {
+            adjustedDate = Date().addingTimeInterval(-elapsedTime)
+        } else {
+            adjustedDate = Date()
+        }
         
         let state = FocusAttributes.ContentState(mode: mode, startTime: adjustedDate)
         
-        do {
-            stop() // End the old activity
-            activity = try Activity.request(
-                attributes: attributes,
-                content: .init(state: state, staleDate: nil)
-            )
-        } catch {
-            print("Error: \(error)")
+        // Check for existing activity to update instead of restart
+        if let existingActivity = Activity<FocusAttributes>.activities.first {
+            Swift.Task {
+                await existingActivity.update(using: state)
+            }
+            self.activity = existingActivity
+        } else {
+            do {
+                activity = try Activity.request(
+                    attributes: attributes,
+                    content: .init(state: state, staleDate: nil)
+                )
+            } catch {
+                print("Error: \(error)")
+            }
         }
     }
 

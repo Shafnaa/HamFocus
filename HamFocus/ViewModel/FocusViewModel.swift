@@ -101,20 +101,18 @@ class FocusViewModel: ObservableObject {
         self.currentState = .working
         self.isFocusModeActive = true
 
-        // Always reset when starting a fresh session
+        // 1. CLEAN THE TUNNEL IMMEDIATELY
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
+        groupDefaults?.set("focus", forKey: "currentMode") // Force it to focus
+        groupDefaults?.set(0, forKey: "savedElapsedTime") // Reset the time too
+
+        // ... rest of your existing logic ...
         self.accumulatedTime = 0
         self.elapsedTime = 0
         self.breakTimeRemaining = 15 * 60
 
-        currentSession = Timestamp(
-            type: .focus,
-            startedAt: Date(),
-            endedAt: nil,
-        )
-
-        FocusDeviceActivityMonitor.startMonitoring()
         startStopwatch()
-
+        
         liveActivityManager.start(
             taskName: task.title ?? "Focus Task",
             mode: .focus
@@ -196,23 +194,20 @@ class FocusViewModel: ObservableObject {
 
     // MARK: BREAK
     func startBreakMode() {
-        // 1. EXIT if we are already in break mode (Prevents recursion)
         guard currentState == .working else { return }
-        
-        // 2. UPDATE STATE FIRST
         currentState = .breaking
 
         timer?.invalidate()
         pauseStopwatch()
 
-        // 3. Update the tunnel
         let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
         groupDefaults?.set("breakTime", forKey: "currentMode")
 
+        // FIX: Change elapsedTime from -(15 * 60) to 0
         liveActivityManager.start(
             taskName: currentTask?.title ?? "Break",
             mode: .breakTime,
-            elapsedTime: -(15 * 60)
+            elapsedTime: 0
         )
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
