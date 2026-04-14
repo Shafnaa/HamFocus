@@ -49,7 +49,6 @@ class FocusViewModel: ObservableObject {
 
     ///get signal from the widget
     private func observeWidgetSignals() {
-        // Listen for when UserDefaults changes (the signal from the Intent)
         NotificationCenter.default.addObserver(
             forName: UserDefaults.didChangeNotification,
             object: nil,
@@ -59,10 +58,12 @@ class FocusViewModel: ObservableObject {
             let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
             let signalMode = groupDefaults?.string(forKey: "currentMode")
 
-            // Sync your app state with the widget's click
+            // ONLY trigger if the signal is DIFFERENT from our current app state
             if signalMode == "breakTime" && self.currentState == .working {
+                print("🕹️ Widget Signal: App is Working -> Switching to Break")
                 self.startBreakMode()
             } else if signalMode == "focus" && self.currentState == .breaking {
+                print("🕹️ Widget Signal: App is Breaking -> Switching to Focus")
                 self.stopBreakMode()
             }
         }
@@ -193,20 +194,28 @@ class FocusViewModel: ObservableObject {
         startTime = nil
     }
 
-    //MARK: BREAK
-    ///start breakmode dari focus mode, 15 minutes countdown
+    // MARK: BREAK
     func startBreakMode() {
-        timer?.invalidate()
-        pauseStopwatch()  // Automatically stop the focus work
+        // 1. EXIT if we are already in break mode (Prevents recursion)
+        guard currentState == .working else { return }
+        
+        // 2. UPDATE STATE FIRST
+        currentState = .breaking
 
-        //restart the timer
+        timer?.invalidate()
+        pauseStopwatch()
+
+        // 3. Update the tunnel
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
+        groupDefaults?.set("breakTime", forKey: "currentMode")
+
         liveActivityManager.start(
             taskName: currentTask?.title ?? "Break",
-            mode: .breakTime
+            mode: .breakTime,
+            elapsedTime: -(15 * 60)
         )
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
-            [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.breakTimeRemaining > 0 {
                 self.breakTimeRemaining -= 1
@@ -214,22 +223,26 @@ class FocusViewModel: ObservableObject {
                 self.stopBreakMode()
             }
         }
-        currentState = .breaking
     }
 
-    ///stop the break mode totally
     func stopBreakMode() {
-        timer?.invalidate()
-        breakTimeRemaining = 15 * 60  // Reset for the next break
-
-        // Switch state back to working and start the clock immediately
+        // 1. EXIT if we are already working
+        guard currentState == .breaking else { return }
+        
+        // 2. UPDATE STATE FIRST
         currentState = .working
 
-        //switch live activity back to focus
+        timer?.invalidate()
+        breakTimeRemaining = 15 * 60
+
+        // 3. Update the tunnel
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
+        groupDefaults?.set("focus", forKey: "currentMode")
+
         liveActivityManager.start(
             taskName: currentTask?.title ?? "Focus",
             mode: .focus,
-            elapsedTime: self.elapsedTime  // Pass the time we just saved!
+            elapsedTime: self.elapsedTime
         )
         startStopwatch()
     }
