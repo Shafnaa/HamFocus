@@ -7,8 +7,6 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.felicia.HamFocus</string>
-		<string>group.heidy</string>
-		<string>group.com.felicia.HamFocus</string>
 	</array>
 </dict>
 </plist>
