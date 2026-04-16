@@ -24,7 +24,13 @@ struct TabHomeView: View {
                 TaskCarouselView(tasks: topThreeTasks, taskIndex: $taskIndex)
 
                 if !topThreeTasks.isEmpty {
-                    ActionButton(title: "Start", iconName: "play.fill") {
+                    ActionButton(
+                        note: "Hold to start",
+                        iconName: "play.fill",
+                        foregroundColor: .black,
+                        backgroundColor: .gray,
+                        longPressEnabled: true,
+                    ) {
                         let task =
                             topThreeTasks.indices.contains(taskIndex)
                             ? topThreeTasks[taskIndex] : topThreeTasks.first
@@ -50,5 +56,5 @@ struct TabHomeView: View {
 #Preview {
     TabHomeView()
         .environment(AppViewModel())
-        .environmentObject(FocusViewModel.shared) // <--- Add this
+        .environmentObject(FocusViewModel.shared)  // <--- Add this
 }

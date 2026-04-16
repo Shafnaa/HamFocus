@@ -18,7 +18,9 @@ struct AnimatedIntroContainer: View {
 
             ActionButton(
                 title: viewModel.buttonTitle,
-                iconName: "shield.lefthalf.filled"
+                iconName: "shield.lefthalf.filled",
+                foregroundColor: .black,
+                backgroundColor: .gray,
             ) {
                 // The Screen Time permission modal is presented by the system.
                 viewModel.requestAuthorization(

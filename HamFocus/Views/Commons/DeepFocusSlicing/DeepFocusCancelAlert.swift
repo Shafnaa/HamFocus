@@ -42,9 +42,10 @@ struct DeepFocusCancelAlert<Content: View>: View {
                 ) {
                     isPresented = false
                 }
+
                 Button(
                     "Close",
-                    role: .confirm,
+                    role: .destructive,
                 ) {
                     action()
 

@@ -49,15 +49,15 @@ struct DeepFocusLabel: View {
 
     private var title: String {
         switch session {
-        case .working:     return "Let's Get to Work!"
-        case .breaking: return "Time for a Break"
+        case .focus:     return "Let's Get to Work!"
+        case .break: return "Time for a Break"
         }
     }
 
     private var subtitle: String? {
         switch session {
-        case .working:     return "Stay on the wheel, finish what matters!"
-        case .breaking: return "Short breaks improve focus.\nTake a moment to reset."
+        case .focus:     return "Stay on the wheel, finish what matters!"
+        case .break: return "Short breaks improve focus.\nTake a moment to reset."
         }
     }
 
@@ -80,8 +80,8 @@ struct DeepFocusLabel: View {
 
 #Preview {
     VStack {
-        DeepFocusLabel(session: .working)
-        DeepFocusLabel(session: .breaking)
+        DeepFocusLabel(session: .focus)
+        DeepFocusLabel(session: .break)
         Spacer()
     }
 }
