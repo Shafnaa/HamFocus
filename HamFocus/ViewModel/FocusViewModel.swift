@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 enum FocusState {
-    case working  // Show Stopwatch
-    case breaking  // Show 15:00 Countdown
+    case focus  // Show Stopwatch
+    case `break`  // Show 15:00 Countdown
 }
 
 @MainActor
@@ -29,7 +29,7 @@ class FocusViewModel: ObservableObject {
     ///accumulated time to save for after breaks
     private var accumulatedTime: TimeInterval = 0
     ///current default state when entering focusstate
-    @Published var currentState: FocusState = .working
+    @Published var currentState: FocusState = .focus
     ///15 minutes breaktime
     @Published var breakTimeRemaining: TimeInterval = 15 * 60
     ///timer
@@ -59,10 +59,10 @@ class FocusViewModel: ObservableObject {
             let signalMode = groupDefaults?.string(forKey: "currentMode")
 
             // ONLY trigger if the signal is DIFFERENT from our current app state
-            if signalMode == "breakTime" && self.currentState == .working {
+            if signalMode == "breakTime" && self.currentState == .focus {
                 print("🕹️ Widget Signal: App is Working -> Switching to Break")
                 self.startBreakMode()
-            } else if signalMode == "focus" && self.currentState == .breaking {
+            } else if signalMode == "focus" && self.currentState == .break {
                 print("🕹️ Widget Signal: App is Breaking -> Switching to Focus")
                 self.stopBreakMode()
             }
@@ -75,7 +75,7 @@ class FocusViewModel: ObservableObject {
         accumulatedTime = 0
         elapsedTime = 0
         breakTimeRemaining = 15 * 60
-        currentState = .working
+        currentState = .focus
         startTime = nil
     }
 
@@ -98,21 +98,19 @@ class FocusViewModel: ObservableObject {
     ///this is the logic after clicking the start focus mode button
     func startFocusMode(for task: Task) {
         self.currentTask = task
-        self.currentState = .working
+        self.currentState = .focus
         self.isFocusModeActive = true
 
-        // Always reset when starting a fresh session
+        // 1. CLEAN THE TUNNEL IMMEDIATELY
+        let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
+        groupDefaults?.set("focus", forKey: "currentMode")  // Force it to focus
+        groupDefaults?.set(0, forKey: "savedElapsedTime")  // Reset the time too
+
+        // ... rest of your existing logic ...
         self.accumulatedTime = 0
         self.elapsedTime = 0
         self.breakTimeRemaining = 15 * 60
 
-        currentSession = Timestamp(
-            type: .focus,
-            startedAt: Date(),
-            endedAt: nil,
-        )
-
-        FocusDeviceActivityMonitor.startMonitoring()
         startStopwatch()
 
         liveActivityManager.start(
@@ -131,7 +129,7 @@ class FocusViewModel: ObservableObject {
 
         // 1. Calculate the final precise time for this CURRENT session
         let sessionDuration =
-            (currentState == .working)
+            (currentState == .focus)
             ? (now.timeIntervalSince(startTime ?? now) + accumulatedTime)
             : accumulatedTime
 
@@ -196,26 +194,24 @@ class FocusViewModel: ObservableObject {
 
     // MARK: BREAK
     func startBreakMode() {
-        // 1. EXIT if we are already in break mode (Prevents recursion)
-        guard currentState == .working else { return }
-        
-        // 2. UPDATE STATE FIRST
-        currentState = .breaking
+        guard currentState == .focus else { return }
+        currentState = .break
 
         timer?.invalidate()
         pauseStopwatch()
 
-        // 3. Update the tunnel
         let groupDefaults = UserDefaults(suiteName: AppConfig.appGroupID)
         groupDefaults?.set("breakTime", forKey: "currentMode")
 
+        // FIX: Change elapsedTime from -(15 * 60) to 0
         liveActivityManager.start(
             taskName: currentTask?.title ?? "Break",
             mode: .breakTime,
-            elapsedTime: -(15 * 60)
+            elapsedTime: 0
         )
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
+            [weak self] _ in
             guard let self = self else { return }
             if self.breakTimeRemaining > 0 {
                 self.breakTimeRemaining -= 1
@@ -227,10 +223,10 @@ class FocusViewModel: ObservableObject {
 
     func stopBreakMode() {
         // 1. EXIT if we are already working
-        guard currentState == .breaking else { return }
-        
+        guard currentState == .break else { return }
+
         // 2. UPDATE STATE FIRST
-        currentState = .working
+        currentState = .focus
 
         timer?.invalidate()
         breakTimeRemaining = 15 * 60
@@ -249,7 +245,7 @@ class FocusViewModel: ObservableObject {
 
     ///the pause break logic
     func toggleBreak() {
-        if currentState == .working {
+        if currentState == .focus {
             startBreakMode()
         } else {
             stopBreakMode()  // This acts as "Resume Work"

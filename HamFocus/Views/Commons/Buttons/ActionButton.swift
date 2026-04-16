@@ -106,9 +106,13 @@ struct ActionButton: View {
 
                     // Make it grows from center
                     GeometryReader { geo in
+                        let rawWidth = geo.size.width * pressProgress
+                        let safeWidth =
+                            rawWidth.isFinite
+                            ? max(0, min(rawWidth, geo.size.width)) : 0
                         Capsule()
                             .fill(foregroundColor ?? .accentColor)
-                            .frame(width: geo.size.width * pressProgress)
+                            .frame(width: safeWidth)
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -150,10 +154,14 @@ struct ActionButton: View {
         }
         .onReceive(timer) { _ in
             if isPressed {
-                pressProgress += CGFloat(0.01 / longPressDuration)
+                pressProgress += CGFloat(0.01 / max(0.001, longPressDuration))
+                if !pressProgress.isFinite { pressProgress = 0 }
+                pressProgress = min(max(pressProgress, 0), 1)
             } else {
                 if pressProgress > 0 {
                     pressProgress -= 0.05
+                    if !pressProgress.isFinite { pressProgress = 0 }
+                    pressProgress = max(pressProgress, 0)
                 } else {
                     pressProgress = 0
                 }
@@ -191,44 +199,12 @@ struct ActionButton: View {
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(.thinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(
-                            (backgroundColor ?? Color.primary).opacity(0.2),
-                            lineWidth: 4
-                        )
+                .background(
+                    (backgroundColor ?? Color.primary).opacity(0.8),
                 )
+                .cornerRadius(16)
         )
-        .foregroundColor(foregroundColor ?? .primary)
-    }
-}
-
-private struct GlassProminentIfAvailable: ViewModifier {
-    let backgroundColor: Color
-    let isLoading: Bool
-    let isDisabled: Bool
-
-    func body(content: Content) -> some View {
-        Group {
-            if #available(iOS 26.0, *) {
-                content
-                    .frame(height: 50)
-                    .buttonStyle(.glassProminent)
-                    .tint(backgroundColor)
-            } else {
-                content
-                    .background(backgroundColor)
-                    .opacity((isLoading || isDisabled) ? 0.6 : 1.0)
-                    .clipShape(Capsule())
-                    .shadow(
-                        color: Color.black.opacity(0.1),
-                        radius: 5,
-                        x: 0,
-                        y: 2
-                    )
-                    .padding(.horizontal, 20)
-            }
-        }
+        .foregroundColor(foregroundColor ?? .secondary)
     }
 }
 
@@ -263,8 +239,8 @@ private struct PressableButtonStyle: ButtonStyle {
         ActionButton(
             note: "Hold for 1 seconds",
             iconName: "play.fill",
-            foregroundColor: .green,
-            backgroundColor: .red,
+            foregroundColor: .black,
+            backgroundColor: .gray,
             //            isLoading: true,
             longPressEnabled: true,
             longPressDuration: 0.8,
@@ -344,16 +320,6 @@ private struct PressableButtonStyle: ButtonStyle {
         ) {
             print("Should not tap")
         }
-    }.overlay {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(
-                LinearGradient(
-                    colors: [.white.opacity(0.5), .clear, .white.opacity(0.2)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ),
-                lineWidth: 1.5
-            )
     }
     .padding(24)
 }

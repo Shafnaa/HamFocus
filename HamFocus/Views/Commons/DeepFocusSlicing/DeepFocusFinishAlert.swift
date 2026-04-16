@@ -32,16 +32,16 @@ struct DeepFocusFinishAlert<Content: View>: View {
 
     var body: some View {
         content
-
             .alert("Focus Session Complete", isPresented: $isPresented) {
                 Button(
                     "Back",
+                    role: .cancel,
                 ) {
                     isPresented = false
                 }
                 Button(
                     "Finish",
-                    role: .confirm,
+                    role: .destructive,
                 ) {
                     action()
 

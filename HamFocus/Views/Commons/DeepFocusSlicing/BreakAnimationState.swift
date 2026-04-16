@@ -11,7 +11,7 @@ import UIKit
 
 struct BreakAnimationState: View {
     private enum AnimationState {
-        case session
+        case focus
         case `break`
         case finish
     }
@@ -51,7 +51,7 @@ struct BreakAnimationState: View {
     @ViewBuilder
     private var animationContent: some View {
         switch animationState {
-        case .session:
+        case .focus:
             GIFAssetView(asset: .runningGIF)
         case .break:
             Image(priority.animationAsset.rawValue)
@@ -66,7 +66,7 @@ struct BreakAnimationState: View {
         priority: Priority,
         timerText: String
     ) -> BreakAnimationState {
-        make(priority: priority, timerText: timerText, animationState: .session)
+        make(priority: priority, timerText: timerText, animationState: .focus)
     }
 
     static func `break`(

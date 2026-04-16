@@ -9,7 +9,7 @@ import DeviceActivity
 import OSLog
 
 private let log = Logger(
-    subsystem: "com.saujanashafi.HamFocus.monitor",
+    subsystem: "com.felicia.HamFocus.monitor",
     category: "DeviceActivity"
 )
 

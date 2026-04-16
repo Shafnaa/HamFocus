@@ -60,7 +60,9 @@ struct ShieldSelectionView: View {
 
                 ActionButton(
                     title: hasSelection ? "Edit blocked apps" : "Choose blocked apps",
-                    iconName: "plus.circle.fill"
+                    iconName: "plus.circle.fill",
+                    foregroundColor: .black,
+                    backgroundColor: .gray,
                 ) {
                     isPickerPresented = true
                 }
@@ -78,6 +80,8 @@ struct ShieldSelectionView: View {
             ActionButton(
                 title: "Continue",
                 iconName: "checkmark.circle.fill",
+                foregroundColor: .black,
+                backgroundColor: .gray,
                 isDisabled: !hasSelection
             ) {
                 saveSelection()
